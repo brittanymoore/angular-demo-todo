@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "rootDir": "",
+        "outDir": "dist", 
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "lib": ["es6", "dom"],  
+        "typeRoots": ["node_modules/@types"],
+        "types": ["node", "jasmine"],  
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
+    },
+    "exclude": [
+        "node_modules",
+        "src/**/*.spec.ts",
+        "src/**/*.e2e.ts"
+    ],
+    "compileOnSave": false,
+    "buildOnSave": false
+}
