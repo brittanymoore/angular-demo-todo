@@ -9,55 +9,46 @@ const MOCK_DELAY = 0;
 
 export function mockBackendFactory(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {  
 
-    // disable mock backend based on environment variable
-    if (!process.env.USE_MOCK) {
+    backend.connections.subscribe((connection: MockConnection) => {
 
-        return new Http(realBackend, options);
+        setTimeout(() => {
 
-    } else {
+            // TODO
 
-        backend.connections.subscribe((connection: MockConnection) => {
+            if (connection.request.url.match(/getTasks/) &&
+            connection.request.method === RequestMethod.Get) {
 
-            setTimeout(() => {
+                let mock = new ToDoMock();
+                let tasks = mock.getTasks();
 
-                // TODO
+                connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: tasks })));
 
-                if (connection.request.url.match(/getTasks/) &&
-                connection.request.method === RequestMethod.Get) {
+                return;
 
-                    let mock = new ToDoMock();
-                    let tasks = mock.getTasks();
+            }
 
-                    connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: tasks })));
+            if (connection.request.url.match(/addTask/) &&
+            connection.request.method === RequestMethod.Post) {
 
-                    return;
+                let mock = new ToDoMock();
+                
+                let data = JSON.parse(connection.request.getBody());
+                let newTask = mock.addTask(data.name);
 
-                }
+                connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: newTask })));
 
-                if (connection.request.url.match(/addTask/) &&
-                connection.request.method === RequestMethod.Post) {
+                return;
 
-                    let mock = new ToDoMock();
-                    
-                    let data = JSON.parse(connection.request.getBody());
-                    let newTask = mock.addTask(data.name);
+            }
 
-                    connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: newTask })));
+            let realHttp = new Http(realBackend, options);
+            realHttp.get(connection.request.url).subscribe((response: Response) => { connection.mockRespond(response); });
 
-                    return;
+        }, MOCK_DELAY); // optional mock delay
 
-                }
+    });
 
-                let realHttp = new Http(realBackend, options);
-                realHttp.get(connection.request.url).subscribe((response: Response) => { connection.mockRespond(response); });
-
-            }, MOCK_DELAY); // optional mock delay
-
-        });
-
-        return new Http(backend, options);
-
-    } 
+    return new Http(backend, options); 
 
 }
 
