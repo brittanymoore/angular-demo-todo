@@ -4,10 +4,10 @@
     "description": "A simple app to demonstrate mocking and testing.",
     "scripts": {
         "clean": "rimraf ./dist",
-        "build": "webpack --config ./config/webpack.dev.js --progress",
-        "build:prod": "npm run clean && webpack --config ./config/webpack.prod.js --progress",
-        "start": "webpack-dev-server --config ./config/webpack.dev.js",
-        "start:prod": "npm run clean && webpack-dev-server --config ./config/webpack.prod.js",
+        "build": "webpack --progress --config ./config/webpack.dev.js",
+        "build:prod": "npm run clean && webpack --progress --config ./config/webpack.prod.js",
+        "start": "webpack-dev-server --config ./config/webpack.dev.js --inline --progress",
+        "start:prod": "npm run clean && webpack-dev-server --config ./config/webpack.prod.js --inline --progress",
         "test": "karma start ./config/karma.conf.js ",
         "webdriver-manager": "webdriver-manager update --standalone false --gecko false",
         "test:e2e": "protractor ./config/protractor.conf.js"
@@ -61,7 +61,8 @@
         "karma-spec-reporter": "0.0.30",
         "jasmine": "2.5.3",
         "protractor": "5.1.1",
-        "ts-node": "3.0.2"
+        "ts-node": "3.0.2",
+        "rimraf": "2.6.1"
     },
     "author": "Brittany Moore <brittanymoore>",
     "license": "MIT",

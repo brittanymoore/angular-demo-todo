@@ -6,13 +6,13 @@ import { AppComponent } from './app.component';
 
 import { ToDoModule } from './todo/todo.module';
 import { MockModule } from './mock/mock.module';
-import { AppRoutingModule } from './app.routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 let imports = [
     BrowserModule,
+    HttpModule,
     AppRoutingModule,
-    ToDoModule,
-    HttpModule
+    ToDoModule
 ];
 
 // Include mocks if USE_MOCK is true.
