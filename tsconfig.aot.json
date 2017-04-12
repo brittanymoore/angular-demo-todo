@@ -10,7 +10,8 @@
         "types": ["node"], 
         "sourceMap": true,
         "emitDecoratorMetadata": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "noImplicitAny": true
     },
     "exclude": [
         "node_modules",

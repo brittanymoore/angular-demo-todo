@@ -11,48 +11,53 @@ import { ToDoService } from './todo.service';
 })
 export class ToDoComponent implements OnInit {
 
-    tasks: Task[] = [];
-    title:string = "To-do List";
-    tasksLoading: boolean = true;
-    error: any;
-    form: FormGroup;
-
-    taskName = new FormControl("", Validators.required);
-
-    constructor(
-        private fb: FormBuilder,
-        private toDoService: ToDoService) { 
-            this.form = fb.group({
-                "taskName": this.taskName
-            });
-        }
-
-    onSubmit() {
-        this.add(this.taskName.value);
-        this.taskName.reset();
+    public tasks: Task[] = [];
+    public tasksLoading: boolean = true;
+    public error: any;
+    public task: FormGroup;
+    private taskModel: Task = {
+        name: ''
     }
 
-    getTasks(): void {
-        this.toDoService
-            .getTasks()
+    constructor(
+        public fb: FormBuilder,
+        public toDoService: ToDoService
+    ) { }
+
+    public onSubmit(): void {
+        this.add(this.task.value.name);
+        this.task.reset();
+    }
+
+    public getTasks(): void {
+        this.toDoService.getTasks()
             .subscribe(
-                tasks => {
+                (tasks) => {
                     this.tasks = tasks;
                     this.tasksLoading = false;
                 },
-                error => this.error = <any>error);           
+                (error) => { 
+                    this.error = <any>error
+                }
+            );           
     } 
 
-    add(name: string): void {
+    public add(name: string): void {
         name = name.trim();
         if (!name) { return; }
         this.toDoService.create(name)
             .subscribe(
-                task => this.tasks.push(task),
-                error => this.error = <any>error);
+                (task) => { this.tasks.push(task); },
+                (error) => { this.error = <any>error; }
+            );
     }   
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
+        // set up form
+        this.task = this.fb.group({
+            name: [this.taskModel.name, [Validators.required]]
+        });
+        // get existing tasks
         this.getTasks();
     }
 

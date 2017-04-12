@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "rootDir": "",
+        "rootDir": ".",
         "outDir": "dist", 
         "module": "commonjs",
         "moduleResolution": "node",
@@ -13,9 +13,7 @@
         "experimentalDecorators": true
     },
     "exclude": [
-        "node_modules",
-        "src/**/*.spec.ts",
-        "src/**/*.e2e.ts"
+        "node_modules"
     ],
     "compileOnSave": false,
     "buildOnSave": false

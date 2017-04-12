@@ -20,10 +20,10 @@
 <hr>
 
 <div class="card">
-    <form novalidate [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form novalidate [formGroup]="task" (ngSubmit)="onSubmit()">
             <label>Add a task:
-                <input type="text" formControlName="taskName" id="taskName" />
+                <input type="text" name="name" formControlName="name" id="taskName" />
             </label> 
-            <input type="submit" [disabled]="!form.valid" id="taskAdd" value="Add" />    
+            <input type="submit" [disabled]="!task.valid" id="taskAdd" value="Add" />    
     </form>
 </div>

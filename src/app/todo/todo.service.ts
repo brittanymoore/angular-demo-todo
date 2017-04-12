@@ -14,19 +14,17 @@ export class ToDoService {
         private http: Http
     ) { }
 
-    getTasks(): Observable<Task[]> {
-        return this.http
-            .get("getTasks", { headers: this.headers() })
+    public getTasks(): Observable<Task[]> {
+        return this.http.get("getTasks", { headers: this.headers() })
             .map(this.extractHttpData)
             .catch(this.handleError);
     }
 
-    create(name: string): Observable<Task> {
-        let data:Object = {
+    public create(name: string): Observable<Task> {
+        let data: Object = {
             name: name
         }
-        return this.http
-            .post("addTask", JSON.stringify(data), { headers: this.headers() })
+        return this.http.post("addTask", JSON.stringify(data), { headers: this.headers() })
             .map(this.extractHttpData)
             .catch(this.handleError);
     }
@@ -35,11 +33,11 @@ export class ToDoService {
         return Promise.reject(error.message || error);
     }
 
-    private extractHttpData(res: Response):Object {
+    private extractHttpData(res: Response): Object {
         return res.json();
     }
 
-    private headers():Headers {
+    private headers(): Headers {
         return new Headers(
             {
                 'Accept': 'application/json;odata=verbose'
