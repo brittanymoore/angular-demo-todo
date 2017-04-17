@@ -1,15 +1,12 @@
 .vscode
 node_modules
 npm-debug.log
+yarn.lock
 
 dev
 dist
-dist-aot
-compiled-aot
 
 /src/**/*.js
 /src/**/*.map
 /src/**/*.ngfactory.ts
 /src/**/*.css.shim.ts
-
-

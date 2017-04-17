@@ -1,7 +1,7 @@
 // color themes
-@darkBlue: navy;
+$darkBlue: navy;
 
-@headerColor: @darkBlue;
+$headerColor: $darkBlue;
 
 body {
     font-family: "Segoe UI", Helvetica, Arial, sans-serif; 
@@ -9,7 +9,7 @@ body {
 }
 
 header {
-    background-color: @headerColor;
+    background-color: $headerColor;
     color: #ffffff;
     padding: 10px 20px;
 }

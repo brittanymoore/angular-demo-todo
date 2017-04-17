@@ -33,11 +33,11 @@ exports.config = {
     module: {
         rules: [
             { 
-                test: /\.less$/, use: [ 
+                test: /\.scss$/, use: [
                     'exports-loader?module.exports.toString()',
                     'css-loader?sourceMap=false&importLoaders=1&minimize=true',
-                    'postcss-loader?config=./config/postcss.config.js',
-                    'less-loader?sourceMap=false'
+                    'sass-loader',
+                    'postcss-loader?config=./config/postcss.config.js'
                 ]
             },            
             { 

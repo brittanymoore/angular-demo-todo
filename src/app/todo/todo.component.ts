@@ -7,7 +7,7 @@ import { ToDoService } from './todo.service';
 @Component({
     selector: 'todo',
     templateUrl: 'todo.component.html',
-    styleUrls: [ './todo.component.less' ]
+    styleUrls: [ './todo.component.scss' ]
 })
 export class ToDoComponent implements OnInit {
 
