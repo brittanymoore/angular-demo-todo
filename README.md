@@ -1,8 +1,7 @@
 # Demo: Todo
 
 This is a demo developed from my [seed repo](https://github.com/brittanymoore/angular-vertex). It extends the 
-seed with todo functionality, with some example mocking and unit
-tests.
+seed with todo functionality, with some example mocking and unit tests.
 
 This repo includes the following:
 * angular
@@ -57,7 +56,7 @@ Support is built-in for unit testing with Karma and end-to-end testing with Prot
 Unit tests should be added to a file named **.spec.ts somewhere in src directory tree. To run the tests:
 
 ```
-npm run test:unit
+npm run test
 ```
 
 E2E tests should be added to a file named **.e2e.ts somewhere in the src directory tree. To run the tests:

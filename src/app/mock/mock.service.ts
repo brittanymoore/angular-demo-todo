@@ -7,29 +7,50 @@ import { ToDoMock } from './models/todo.mock';
 // constants
 const MOCK_DELAY = 0; // simulate a server delay
 
+// mock instances
+let todo = new ToDoMock();
+
+// mock service
 export function mockBackendFactory(backend: MockBackend, options: BaseRequestOptions, realBackend: XHRBackend) {  
 
     backend.connections.subscribe((connection: MockConnection) => {
 
         setTimeout(() => {
 
-            if (connection.request.url.match(/getTasks/) && connection.request.method === RequestMethod.Get) {
-                let mock = new ToDoMock();
-                let tasks = mock.getTasks();
-                connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: tasks })));
+            /* task methods */
+
+            // GET /api/tasks
+            if (connection.request.url.match(/\api\/tasks$/) && connection.request.method === RequestMethod.Get) {
+                let tasks = todo.getTasks();
+                connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: JSON.stringify(tasks) })));
                 return;
             }
 
-            if (connection.request.url.match(/addTask/) && connection.request.method === RequestMethod.Post) {
-                let mock = new ToDoMock();           
+            // POST /api/tasks
+            if (connection.request.url.match(/\api\/tasks$/) && connection.request.method === RequestMethod.Post) { 
                 let data = JSON.parse(connection.request.getBody());
-                let newTask = mock.addTask(data.name);
-                connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: newTask })));
+                let task = todo.addTask(data);
+                connection.mockRespond(new Response(new ResponseOptions({ status: 201, body: JSON.stringify(task) })));
                 return;
-
             }
 
-            // set up the mock backend
+            // PUT /api/tasks/##
+            if (connection.request.url.match(/\api\/tasks\/\d+$/) && connection.request.method === RequestMethod.Put) {
+                let match = connection.request.url.match(/\d+$/);
+                let id = parseInt(match[0]);
+                let data = JSON.parse(connection.request.getBody());
+
+                // if ids are both provided and don't match, return 400 Bad Request
+                if (data.id && id != data.id) {
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 400 })));
+                } else {
+                    let task = todo.updateTask(id, data);
+                    connection.mockRespond(new Response(new ResponseOptions({ status: 200, body: JSON.stringify(task) })));
+                }
+                return;
+            }
+
+            /* set up the mock backend */
             let realHttp = new Http(realBackend, options);
             realHttp.get(connection.request.url).subscribe((response: Response) => { 
                 connection.mockRespond(response); 

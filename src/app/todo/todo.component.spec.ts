@@ -2,6 +2,8 @@ import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
+import { Task } from './task';
+
 // dependencies
 import { ToDoComponent } from './todo.component';
 import { ToDoService } from './todo.service';
@@ -13,8 +15,11 @@ class MockToDoService {
     public getTasks() { 
         return Observable.of([]);
     }
-    public create(name) { 
-        return Observable.of({name: name});
+    public addTask(task) { 
+        return Observable.of({ task: task});
+    }
+    public updateTask(task: Task) {
+        return Observable.of({ task: task });
     }
     private handleError() { }
     private extractHttpData() { }
@@ -58,12 +63,13 @@ describe('TodoComponent', () => {
     });
 
     it('should send new task to service', () => {
-        spyOn(component.toDoService, 'create').and.callThrough();
+        spyOn(component.toDoService, 'addTask').and.callThrough();
         let originalTaskCount = component.tasks.length;
-        component.add('test task');
-        expect(component.toDoService.create).toHaveBeenCalledWith('test task');
-        expect(component.toDoService.create).toHaveBeenCalledTimes(1);
-        expect(component.tasks.length).toBe(originalTaskCount+1);
+        let task = new Task('test task');
+        component.addTask(task);
+        expect(component.toDoService.addTask).toHaveBeenCalledWith(task);
+        expect(component.toDoService.addTask).toHaveBeenCalledTimes(1);
+        expect(component.tasks.length).toBe(originalTaskCount + 1);
     });
 
 });
