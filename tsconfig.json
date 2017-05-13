@@ -1,7 +1,5 @@
 {
     "compilerOptions": {
-        "rootDir": ".",
-        "outDir": "dist", 
         "module": "commonjs",
         "moduleResolution": "node",
         "target": "es5",
@@ -14,7 +12,5 @@
     },
     "exclude": [
         "node_modules"
-    ],
-    "compileOnSave": false,
-    "buildOnSave": false
+    ]
 }
