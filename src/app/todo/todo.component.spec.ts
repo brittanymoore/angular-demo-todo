@@ -12,10 +12,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 // mocks
 class MockToDoService {
 
-    public getTasks() { 
+    public getTasks() {
         return Observable.of([]);
     }
-    public addTask(task) { 
+    public addTask(task) {
         return Observable.of({ task: task});
     }
     public updateTask(task: Task) {
@@ -56,7 +56,7 @@ describe('TodoComponent', () => {
     });
 
     it('should get tasks from service', () => {
-        spyOn(component.toDoService, 'getTasks').and.returnValue(Observable.of([{name: 'a'},{name: 'b'}]));
+        spyOn(component.toDoService, 'getTasks').and.returnValue(Observable.of([{name: 'a'}, {name: 'b'}]));
         component.getTasks();
         expect(component.toDoService.getTasks).toHaveBeenCalledTimes(1);
         expect(component.tasks.length).toBe(2);
@@ -64,8 +64,8 @@ describe('TodoComponent', () => {
 
     it('should send new task to service', () => {
         spyOn(component.toDoService, 'addTask').and.callThrough();
-        let originalTaskCount = component.tasks.length;
-        let task = new Task('test task');
+        const originalTaskCount = component.tasks.length;
+        const task = new Task('test task');
         component.addTask(task);
         expect(component.toDoService.addTask).toHaveBeenCalledWith(task);
         expect(component.toDoService.addTask).toHaveBeenCalledTimes(1);

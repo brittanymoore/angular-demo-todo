@@ -10,12 +10,12 @@ import { Task } from './task';
 @Injectable()
 export class ToDoService {
 
+    // api string for our mock REST service
+    private api: string = '/api/tasks';
+
     constructor(
         private http: Http
     ) { }
-
-    // api string for our mock REST service
-    private api: string = "/api/tasks";
 
     // get all tasks
     public getTasks(): Observable<Task[]> {
@@ -33,7 +33,7 @@ export class ToDoService {
 
     // update an existing task
     public updateTask(task: Task): Observable<Task> {
-        return this.http.put(this.api + "/" + task.id, JSON.stringify(task), { headers: this.headers() })
+        return this.http.put(this.api + '/' + task.id, JSON.stringify(task), { headers: this.headers() })
             .map(this.extractHttpData)
             .catch(this.handleError);
     }

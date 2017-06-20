@@ -8,20 +8,14 @@ import { ToDoModule } from './todo/todo.module';
 import { MockModule } from './mock/mock.module';
 import { AppRoutingModule } from './app-routing.module';
 
-let imports = [
-    BrowserModule,
-    HttpModule,
-    AppRoutingModule,
-    ToDoModule
-];
-
-// Include mocks if USE_MOCK is true.
-if (process.env.USE_MOCK) {
-    imports.push(MockModule);
-}
-
 @NgModule({
-    imports: imports,
+    imports: [
+        BrowserModule,
+        HttpModule,
+        AppRoutingModule,
+        ToDoModule,
+        MockModule
+    ],
     declarations: [
         AppComponent
     ],

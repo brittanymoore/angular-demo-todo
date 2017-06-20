@@ -17,4 +17,4 @@ import { ToDoComponent } from './todo.component';
     declarations: [ ToDoComponent ],
     providers: [ ToDoService ]
 })
-export class ToDoModule { } 
+export class ToDoModule { }

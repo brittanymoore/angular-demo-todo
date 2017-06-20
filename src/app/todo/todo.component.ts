@@ -5,7 +5,7 @@ import { Task } from './task';
 import { ToDoService } from './todo.service';
 
 @Component({
-    selector: 'todo',
+    selector: 'my-todo',
     templateUrl: 'todo.component.html',
     styleUrls: [ './todo.component.scss' ]
 })
@@ -42,18 +42,18 @@ export class ToDoComponent implements OnInit {
                     this.tasks = tasks;
                     this.tasksLoading = false;
                 },
-                (error) => { 
-                    this.error = <any>error
+                (error) => {
+                    this.error = <any>error;
                 }
-            );           
-    } 
+            );
+    }
 
     // add a new task
     public addTask(task: Task): void {
         this.toDoService.addTask(task)
             .subscribe(
-                (task) => { 
-                    this.tasks.push(task);
+                (newTask) => {
+                    this.tasks.push(newTask);
                 },
                 (error) => { this.error = <any>error; }
             );
@@ -64,7 +64,7 @@ export class ToDoComponent implements OnInit {
         task.complete = !task.complete;
         this.toDoService.updateTask(task)
             .subscribe(
-                (task) => { this.getTasks(); },
+                (updatedTask) => { this.getTasks(); },
                 (error) => { this.error = <any>error; }
             );
     }

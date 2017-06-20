@@ -1,1 +1,1 @@
-require("font-awesome-webpack");
+require('font-awesome-webpack');

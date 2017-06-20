@@ -5,8 +5,8 @@ export class ToDoMock {
 
     constructor() {
         this.tasks = [
-            { id: 1, name: "thing I need to do", complete: true },
-            { id: 2, name: "another thing I need to do", complete: false }
+            { id: 1, name: 'thing I need to do', complete: true },
+            { id: 2, name: 'another thing I need to do', complete: false }
         ];
     }
 
@@ -25,8 +25,8 @@ export class ToDoMock {
     // update an existing task
     public updateTask(id: number, task: Task): Task {
         // try to find the item in the current list of tasks
-        let index = this.tasks.findIndex((t) => {
-            return t.id == id; 
+        const index = this.tasks.findIndex((t) => {
+            return t.id === id; 
         });
         // if the item was found, update it - otherwise create a new item
         if (index) {
