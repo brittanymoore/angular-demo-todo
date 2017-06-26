@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // constants
 const APP_NAME = 'Todo App';
-const nodeModules = path.join(process.cwd(), './../node_modules');
 
 exports.API_URL = '';
 exports.PUBLIC_PATH = '';
@@ -15,12 +14,12 @@ exports.config = {
 
     entry: {
         'main': './src/main.ts',
-        'polyfill': './src/polyfill.ts',
-        'vendor': './src/vendor.ts'
+        'vendor': './src/vendor.ts',        
+        'polyfill': './src/polyfill.ts'     
     },
 
     output: {
-        filename: '[name].bundle.js',
+        filename: '[name].[chunkhash].js',
         sourceMapFilename: '[name].map',
         chunkFilename: '[id].chunk.js'
     },
@@ -39,13 +38,13 @@ exports.config = {
                     'sass-loader',
                     { loader: 'postcss-loader', options: { config: { path: './config/postcss.config.js' }}}
                 ]
-            },            
+            },
             { 
                 test: /\.css$/, use: [
                     'exports-loader?module.exports.toString()',
                     'css-loader?sourceMap=false&importLoaders=1&minimize=true',
                     { loader: 'postcss-loader', options: { config: { path: './config/postcss.config.js' }}}
-                ] 
+                ]
             },
             { 
                 test: /\.html$/, loader: 'raw-loader' 
@@ -63,16 +62,10 @@ exports.config = {
 
     plugins: [
 
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'common',
-            minChunks: (module) => module.resource && module.resource.startsWith(nodeModules),
-            chunks: [ 'main', 'polyfill', 'vendor' ]
-        }),
-
         new HtmlWebpackPlugin({
             title: APP_NAME,
             template: './config/index.template.ejs',
-            cache: true
+            chunksSortMode: 'dependency'
         })
         
     ],

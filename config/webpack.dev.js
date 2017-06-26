@@ -10,7 +10,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 const API_URL = process.env.API_URL = common.apiUrl;
 const USE_MOCK = process.env.USE_MOCK = true;
 
-const webpackConfig = {
+module.exports = webpackMerge(common.config, {
 
     output: {
         publicPath: '',
@@ -57,6 +57,4 @@ const webpackConfig = {
         contentBase: './dev'
     }
 
-};
-
-module.exports = webpackMerge(common.config, webpackConfig);
+});
