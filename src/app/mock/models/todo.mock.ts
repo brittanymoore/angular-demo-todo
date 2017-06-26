@@ -26,7 +26,7 @@ export class ToDoMock {
     public updateTask(id: number, task: Task): Task {
         // try to find the item in the current list of tasks
         const index = this.tasks.findIndex((t) => {
-            return t.id === id; 
+            return t.id === id;
         });
         // if the item was found, update it - otherwise create a new item
         if (index) {

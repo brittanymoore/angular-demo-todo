@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { NgModule } from '@angular/core';
 
 import { HttpModule } from '@angular/http';
 
@@ -7,14 +7,13 @@ import { BaseRequestOptions } from '@angular/http';
 import { mockBackendProvider } from './mock.service';
 
 @NgModule({
-    imports: [ 
+    imports: [
         HttpModule
     ],
-    providers: [ 
+    providers: [
         mockBackendProvider,
         MockBackend,
         BaseRequestOptions
     ]
 })
-
 export class MockModule { }
