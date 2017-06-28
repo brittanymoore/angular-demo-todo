@@ -3,7 +3,6 @@ const path = require('path');
 const webpackMerge = require('webpack-merge');
 const WebpackChunkHash = require('webpack-chunk-hash');
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 // plugins
 const ngtools = require('@ngtools/webpack');
@@ -59,7 +58,6 @@ module.exports = webpackMerge(common.config, {
             inlineManifest: false
         }),
         */
-        //new ScriptExtHtmlWebpackPlugin(),
 
         new ngtools.AotPlugin({
             tsConfigPath: './tsconfig.aot.json',
