@@ -1,13 +1,13 @@
 # Demo: Todo
 
-This is a demo developed from my [seed repo](https://github.com/brittanymoore/angular-vertex). It extends the 
+This is a demo developed from my [seed repo](https://github.com/brittanymoore/angular-seed). It extends the 
 seed with todo functionality, with some example mocking and unit tests.
 
 This repo includes the following:
 * angular
 * webpack
 * typescript
-* less
+* sass
 * AOT w/ lazy-loading (@ngtools/webpack)
 * unit testing with karma
 * end-to-end testing with protractor
