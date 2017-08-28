@@ -35,8 +35,6 @@ Once the server is running, open a browser and navigate to localhost:3000.
 
 ### Build
 
-Vertex currently has the following build modes.
-
 | Build Mode        | Command        | Output   | EnableProdMode | Uglify | AOT   |
 | ----------------- | -------------- | -------  | -------------- | ------ | ----- |
 | Dev               | build          | dev      | false          | false  | false |
