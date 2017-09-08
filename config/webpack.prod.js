@@ -1,12 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
 const webpackMerge = require('webpack-merge');
-const WebpackChunkHash = require('webpack-chunk-hash');
-const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 
 // plugins
 const ngtools = require('@ngtools/webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackChunkHash = require('webpack-chunk-hash');
 
 // common config
 const common = require('./webpack.common');
@@ -16,20 +14,38 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const API_URL = process.env.API_URL = common.apiUrl;
 const USE_MOCK = process.env.USE_MOCK = false;
 
-const nodeModules = path.join(process.cwd(), './../node_modules');
+const OUTPUT_PATH = path.resolve(__dirname, './../dist');
+const SOURCE_PATH = path.resolve(__dirname, './../src');
 
 module.exports = webpackMerge(common.config, {
 
     output: {
+        filename: '[name].[chunkhash].js',        
         publicPath: common.PUBLIC_PATH,
-        path: path.resolve(__dirname, './../dist')
+        path: OUTPUT_PATH
     },
 
     devtool: 'source-map',
 
     module: {
         rules: [
-            { test: /\.ts$/, loader: '@ngtools/webpack' }        
+            { test: /\.ts$/, loader: '@ngtools/webpack', exclude: /node_modules/ },
+            { 
+                test: /\.scss$/,
+                use: [
+                    'exports-loader?module.exports.toString()',
+                    'css-loader?sourceMap=false&importLoaders=1&minimize=true',
+                    'sass-loader',
+                    { loader: 'postcss-loader', options: { config: { path: './config/postcss.config.js' }}}    
+                ]
+            },
+            { 
+                test: /\.css$/, use: [
+                    'exports-loader?module.exports.toString()',
+                    'css-loader?sourceMap=false&importLoaders=1&minimize=true',
+                    { loader: 'postcss-loader', options: { config: { path: './config/postcss.config.js' }}}
+                ]
+            },     
         ]
     },
 
@@ -37,7 +53,7 @@ module.exports = webpackMerge(common.config, {
 
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            chunks: ['main', 'vendor'],
+            chunks: ['main'],
             minChunks: function (module) {
                 // this assumes your vendor imports exist in the node_modules directory
                 return module.context && module.context.indexOf('node_modules') !== -1;
@@ -49,15 +65,6 @@ module.exports = webpackMerge(common.config, {
         }),
         new webpack.HashedModuleIdsPlugin(),
         new WebpackChunkHash(),
-        // the plugins below are currently causing an error with the start command - 
-        // commenting until I can figure that out
-        /*
-        new ChunkManifestPlugin({
-            filename: 'manifest.json',
-            manifestVariable: 'webpackManifest',
-            inlineManifest: false
-        }),
-        */
 
         new ngtools.AotPlugin({
             tsConfigPath: './tsconfig.aot.json',
@@ -85,6 +92,11 @@ module.exports = webpackMerge(common.config, {
             },            
             comments: false
         })
-    ]
+
+    ],
+
+    devServer: {
+        contentBase: OUTPUT_PATH
+    }
 
 });

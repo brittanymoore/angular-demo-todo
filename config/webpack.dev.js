@@ -10,11 +10,15 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 const API_URL = process.env.API_URL = common.apiUrl;
 const USE_MOCK = process.env.USE_MOCK = true;
 
+const OUTPUT_PATH = path.resolve(__dirname, './../dev');
+const SOURCE_PATH = path.resolve(__dirname, './../src');
+
 module.exports = webpackMerge(common.config, {
 
     output: {
+        filename: '[name].bundle.js',        
         publicPath: '',
-        path: path.resolve(__dirname, './../dev'),
+        path: OUTPUT_PATH,
         pathinfo: true // helps with devtool: eval
     },
 
@@ -23,12 +27,12 @@ module.exports = webpackMerge(common.config, {
     module: {
         rules: [
             { 
-                test: /\.ts$/, use: [ 
-                    'awesome-typescript-loader', 
-                    'angular2-template-loader', 
-                    'angular-router-loader' 
-                ] 
-            }
+                test: /\.ts$/, 
+                use: [ 'awesome-typescript-loader',  'angular2-template-loader',  'angular-router-loader' ],
+                exclude: /node_modules/
+            },
+            { test: /\.scss$/, use: [ 'exports-loader?module.exports.toString()', 'css-loader', 'sass-loader' ] },
+            { test: /\.css$/, use: [ 'exports-loader?module.exports.toString()', 'css-loader' ] }
         ]
     },
 
@@ -43,18 +47,15 @@ module.exports = webpackMerge(common.config, {
         }),
 
         new webpack.ContextReplacementPlugin(
-            // The (\\|\/) piece accounts for path separators in *nix and Windows
             /angular(\\|\/)core(\\|\/)@angular/,
-            path.resolve(__dirname, './../src'),
-            {
-                // your Angular Async Route paths relative to this root directory
-            }
+            SOURCE_PATH,
+            {}
         )
 
     ],
 
     devServer: {
-        contentBase: './dev'
+        contentBase: OUTPUT_PATH
     }
 
 });

@@ -19,7 +19,6 @@ exports.config = {
     },
 
     output: {
-        filename: '[name].[chunkhash].js',
         sourceMapFilename: '[name].map',
         chunkFilename: '[id].chunk.js'
     },
@@ -31,21 +30,6 @@ exports.config = {
 
     module: {
         rules: [
-            { 
-                test: /\.scss$/, use: [
-                    'exports-loader?module.exports.toString()',
-                    'css-loader?sourceMap=false&importLoaders=1&minimize=true',
-                    'sass-loader',
-                    { loader: 'postcss-loader', options: { config: { path: './config/postcss.config.js' }}}
-                ]
-            },
-            { 
-                test: /\.css$/, use: [
-                    'exports-loader?module.exports.toString()',
-                    'css-loader?sourceMap=false&importLoaders=1&minimize=true',
-                    { loader: 'postcss-loader', options: { config: { path: './config/postcss.config.js' }}}
-                ]
-            },
             { 
                 test: /\.html$/, loader: 'raw-loader' 
             },
