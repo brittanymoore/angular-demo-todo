@@ -1,21 +1,17 @@
 const webpack = require('webpack');
 const path = require('path');
 
-// plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-// constants
 const APP_NAME = 'Todo App';
-
-exports.API_URL = '';
-exports.PUBLIC_PATH = '';
 
 exports.config = {
 
     entry: {
         'main': './src/main.ts',
         'vendor': './src/vendor.ts',        
-        'polyfill': './src/polyfill.ts'     
+        'polyfill': './src/polyfill.ts'
     },
 
     output: {
@@ -30,9 +26,7 @@ exports.config = {
 
     module: {
         rules: [
-            { 
-                test: /\.html$/, loader: 'raw-loader' 
-            },
+            { test: /\.html$/, loader: 'raw-loader' },
             {
                 test: /\.(eot|svg)$/,
                 use: 'file-loader?name=assets/[name].[hash:20].[ext]'
@@ -50,13 +44,24 @@ exports.config = {
             title: APP_NAME,
             template: './config/index.template.ejs',
             chunksSortMode: 'dependency'
-        })
+        }),
+
+        new ExtractTextPlugin('[name].css')
         
     ],
 
     devServer: {
         historyApiFallback: true,
         port: 3000
+    },
+
+    stats: {
+        assets: true,
+        children: false,
+        errors: true,
+        errorDetails: true,
+        modules: false,
+        warnings: false
     }
 
 };

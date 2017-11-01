@@ -2,13 +2,13 @@ const webpack = require('webpack');
 const path = require('path');
 const webpackMerge = require('webpack-merge');
 
-// common config
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const common = require('./webpack.common');
 
-// constants
 const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
-const API_URL = process.env.API_URL = common.apiUrl;
-const USE_MOCK = process.env.USE_MOCK = true;
+const API_URL = process.env.API_URL = '';
+const PUBLIC_PATH = '';
 
 const OUTPUT_PATH = path.resolve(__dirname, './../dev');
 const SOURCE_PATH = path.resolve(__dirname, './../src');
@@ -17,9 +17,9 @@ module.exports = webpackMerge(common.config, {
 
     output: {
         filename: '[name].bundle.js',        
-        publicPath: '',
+        publicPath: PUBLIC_PATH,
         path: OUTPUT_PATH,
-        pathinfo: true // helps with devtool: eval
+        pathinfo: true // devtool: eval
     },
 
     devtool: 'eval', 
@@ -28,11 +28,18 @@ module.exports = webpackMerge(common.config, {
         rules: [
             { 
                 test: /\.ts$/, 
-                use: [ 'awesome-typescript-loader',  'angular2-template-loader',  'angular-router-loader' ],
+                use: [ { loader: 'awesome-typescript-loader', options: { silent: true }},  'angular2-template-loader',  'angular-router-loader' ],
                 exclude: /node_modules/
             },
-            { test: /\.scss$/, use: [ 'exports-loader?module.exports.toString()', 'css-loader', 'sass-loader' ] },
-            { test: /\.css$/, use: [ 'exports-loader?module.exports.toString()', 'css-loader' ] }
+            { test: /\.scss$/, use: [ 'exports-loader?module.exports.toString()', 'css-loader', 'sass-loader' ], exclude: [ /node_modules/, /src\\global.css/ ] },
+            { test: /\.css$/, use: [ 'exports-loader?module.exports.toString()', 'css-loader' ], exclude: [ /node_modules/, /src\\global.css/ ] },
+            { 
+                test: /\.css$/, 
+                loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: [
+                    'css-loader?sourceMap=false&importLoaders=1&minimize=true',
+                ]}), 
+                include: [ /node_modules/, /src\\global.css/ ]
+            }
         ]
     },
 
@@ -41,8 +48,7 @@ module.exports = webpackMerge(common.config, {
         new webpack.DefinePlugin({
             'process.env': {
                 'ENV': JSON.stringify(ENV),
-                'API_URL': JSON.stringify(API_URL),
-                'USE_MOCK': JSON.stringify(USE_MOCK)
+                'API_URL': JSON.stringify(API_URL)
             }
         }),
 

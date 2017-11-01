@@ -15,7 +15,6 @@ export class ToDoComponent implements OnInit {
     public tasksLoading: boolean = true;
     public error: any;
 
-    // form properties
     public task: FormGroup;
     private taskModel: Task = {
         name: '',
@@ -28,13 +27,18 @@ export class ToDoComponent implements OnInit {
         public toDoService: ToDoService
     ) { }
 
-    // on submit, add the new task and reset
+    public ngOnInit(): void {
+        this.task = this.fb.group({
+            name: [ this.taskModel.name, [Validators.required] ]
+        });
+        this.getTasks();
+    }
+
     public onSubmit(): void {
         this.addTask(this.task.value);
         this.task.reset();
     }
 
-    // get all tasks
     public getTasks(): void {
         this.toDoService.getTasks()
             .subscribe(
@@ -48,7 +52,6 @@ export class ToDoComponent implements OnInit {
             );
     }
 
-    // add a new task
     public addTask(task: Task): void {
         this.toDoService.addTask(task)
             .subscribe(
@@ -59,24 +62,13 @@ export class ToDoComponent implements OnInit {
             );
     }
 
-    // toggle the task's completion status
     public toggleTaskCompletion(task: Task) {
         task.complete = !task.complete;
         this.toDoService.updateTask(task)
             .subscribe(
-                (updatedTask) => { this.getTasks(); },
+                (updatedTask) => { },
                 (error) => { this.error = <any>error; }
             );
-    }
-
-    // component initialization
-    public ngOnInit(): void {
-        // set up form
-        this.task = this.fb.group({
-            name: [ this.taskModel.name, [Validators.required] ]
-        });
-        // get existing tasks
-        this.getTasks();
     }
 
 }

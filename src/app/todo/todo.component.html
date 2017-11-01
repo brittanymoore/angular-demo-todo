@@ -11,7 +11,7 @@
         <li *ngFor="let task of tasks" [ngClass]="{complete: task.complete}">
             {{task.name}}
             <div class="task-complete" (click)="toggleTaskCompletion(task)">
-                <span class="fa fa-check-circle"></span>
+                <span class="icon material-icons">check_circle</span>
             </div>
         </li>
     </ul>
