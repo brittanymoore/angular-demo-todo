@@ -1,15 +1,11 @@
 const webpack = require('webpack');
-const path = require('path');
-const webpackMerge = require('webpack-merge');
 
 const ngtools = require('@ngtools/webpack');
 const WebpackChunkHash = require('webpack-chunk-hash');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const common = require('./webpack.common');
-
-module.exports = webpackMerge(common.config, {
+module.exports = {
 
     output: {
         filename: '[name].[chunkhash].min.js'      
@@ -76,4 +72,4 @@ module.exports = webpackMerge(common.config, {
 
     ]
 
-});
+};

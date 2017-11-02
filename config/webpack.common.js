@@ -4,10 +4,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const APP_NAME = 'Todo App';
 const OUTPUT_PATH = path.resolve(__dirname, `./../${process.env.OUTPUT_DIR}`);
 
-exports.config = {
+module.exports = {
 
     entry: {
         'main': './src/main.ts',
@@ -44,8 +43,8 @@ exports.config = {
     plugins: [
 
         new HtmlWebpackPlugin({
-            title: APP_NAME,
-            baseUrl: process.env.PUBLIC_PATH,
+            title: process.env.APP_NAME,
+            baseUrl: process.env.BASE_URL,
             template: './config/index.template.ejs',
             chunksSortMode: 'dependency'
         }),
@@ -66,6 +65,9 @@ exports.config = {
         contentBase: OUTPUT_PATH,
         historyApiFallback: {
             index: process.env.PUBLIC_PATH
+        },
+        watchOptions: {
+            ignored: '**/*.spec.ts'
         },
         proxy: {
             '/api/**': {
