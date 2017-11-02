@@ -70,5 +70,5 @@ npm run test:e2e
 
 ### Mocking
 
-This project uses json-server for mocking REST data. By default, the express server is on port 3000, and the angular app is on port 4200.
+This project uses json-server to simulate REST data. By default, the express server is on port 3000, and the angular app is on port 4200.
 The webpack configuration contains a proxy option that maps requests to the express server.
