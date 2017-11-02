@@ -5,18 +5,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const APP_NAME = 'Todo App';
+const OUTPUT_PATH = path.resolve(__dirname, `./../${process.env.OUTPUT_DIR}`);
 
 exports.config = {
 
     entry: {
         'main': './src/main.ts',
-        'vendor': './src/vendor.ts',        
+        'vendor': './src/vendor.ts',
         'polyfill': './src/polyfill.ts'
     },
 
     output: {
         sourceMapFilename: '[name].map',
-        chunkFilename: '[id].chunk.js'
+        chunkFilename: '[id].chunk.js',
+        publicPath: process.env.PUBLIC_PATH,
+        path: OUTPUT_PATH
     },
 
     resolve: {
@@ -42,17 +45,36 @@ exports.config = {
 
         new HtmlWebpackPlugin({
             title: APP_NAME,
+            baseUrl: process.env.PUBLIC_PATH,
             template: './config/index.template.ejs',
             chunksSortMode: 'dependency'
         }),
 
-        new ExtractTextPlugin('[name].css')
+        new ExtractTextPlugin('styles/[name].css'),
+
+        new webpack.DefinePlugin({
+            'process.env': {
+                'ENV': JSON.stringify(process.env.NODE_ENV),
+                'API_URL': JSON.stringify(process.env.API_URL)
+            }
+        }),
         
     ],
 
     devServer: {
-        historyApiFallback: true,
-        port: 3000
+        port: 4200,
+        contentBase: OUTPUT_PATH,
+        historyApiFallback: {
+            index: process.env.PUBLIC_PATH
+        },
+        proxy: {
+            '/api/**': {
+                target: 'http://localhost:3000',
+                secure: false,
+                changeOrigin: true,
+                pathRewrite: { '^/api': '' }
+            }
+        }
     },
 
     stats: {

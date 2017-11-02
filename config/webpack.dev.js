@@ -5,24 +5,19 @@ const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const common = require('./webpack.common');
-
-const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
-const API_URL = process.env.API_URL = '';
-const PUBLIC_PATH = '';
-
-const OUTPUT_PATH = path.resolve(__dirname, './../dev');
-const SOURCE_PATH = path.resolve(__dirname, './../src');
+const OUTPUT_PATH = path.resolve(__dirname, `./../${process.env.OUTPUT_DIR}`);
+const SOURCE_PATH = path.resolve(__dirname, `./../${process.env.SOURCE_DIR}`);
 
 module.exports = webpackMerge(common.config, {
 
     output: {
         filename: '[name].bundle.js',        
-        publicPath: PUBLIC_PATH,
+        publicPath: process.env.PUBLIC_PATH,
         path: OUTPUT_PATH,
         pathinfo: true // devtool: eval
     },
 
-    devtool: 'eval', 
+    devtool: 'eval',
 
     module: {
         rules: [
@@ -45,23 +40,12 @@ module.exports = webpackMerge(common.config, {
 
     plugins: [
 
-        new webpack.DefinePlugin({
-            'process.env': {
-                'ENV': JSON.stringify(ENV),
-                'API_URL': JSON.stringify(API_URL)
-            }
-        }),
-
         new webpack.ContextReplacementPlugin(
             /angular(\\|\/)core(\\|\/)@angular/,
             SOURCE_PATH,
             {}
         )
 
-    ],
-
-    devServer: {
-        contentBase: OUTPUT_PATH
-    }
+    ]
 
 });

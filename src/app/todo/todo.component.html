@@ -5,16 +5,26 @@
 
     <h2>My List</h2>
 
-    <div *ngIf="tasksLoading">Please wait...</div>
+    <div *ngIf="!tasksLoading; else loading">
 
-    <ul id="taskList" class="todo-list">
-        <li *ngFor="let task of tasks" [ngClass]="{complete: task.complete}">
-            {{task.name}}
-            <div class="task-complete" (click)="toggleTaskCompletion(task)">
-                <span class="icon material-icons">check_circle</span>
-            </div>
-        </li>
-    </ul>
+        <ul id="taskList" class="todo-list" *ngIf="tasks.length; else notasks">
+            <li *ngFor="let task of tasks" [ngClass]="{complete: task.complete}">
+                {{task.name}}
+                <div class="task-complete" (click)="toggleTaskCompletion(task)">
+                    <span class="icon material-icons">check_circle</span>
+                </div>
+            </li>
+        </ul>
+
+        <ng-template #notasks>
+            <div>No tasks found.</div>
+        </ng-template>
+
+    </div>
+
+    <ng-template #loading>
+        <div>Please wait...</div>        
+    </ng-template>
 
 </div>
 

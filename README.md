@@ -11,7 +11,7 @@ This repo includes the following:
 * AOT w/ lazy-loading (@ngtools/webpack)
 * unit testing with karma
 * end-to-end testing with protractor
-* backendless development wih mocks
+* express / json-server
 
 ## Getting Started
 
@@ -25,13 +25,13 @@ npm install
 
 ### Launch the App
 
-To run the app in development mode:
+Run the commands below in two separate terminals. The serve command starts an express server, and the start command launches the 
+angular application.
 
 ```
-npm run start
+npm run serve
+npm start
 ```
-
-Once the server is running, open a browser and navigate to localhost:3000.
 
 ### Build
 
@@ -70,6 +70,5 @@ npm run test:e2e
 
 ### Mocking
 
-This project includes a 'mock' module that provides a fake backend for 
-the rest of the application. The todo service is making http calls that are
-intercepted by MockModule.
+This project uses json-server for mocking REST data. By default, the express server is on port 3000, and the angular app is on port 4200.
+The webpack configuration contains a proxy option that maps requests to the express server.

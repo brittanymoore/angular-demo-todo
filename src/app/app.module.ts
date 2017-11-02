@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
 import { ToDoModule } from './todo/todo.module';
-import { MockModule } from './mock/mock.module';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -13,8 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
         BrowserModule,
         HttpModule,
         AppRoutingModule,
-        ToDoModule,
-        MockModule
+        ToDoModule
     ],
     declarations: [
         AppComponent

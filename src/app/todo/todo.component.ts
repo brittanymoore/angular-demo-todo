@@ -53,9 +53,11 @@ export class ToDoComponent implements OnInit {
     }
 
     public addTask(task: Task): void {
+        console.log(task);
         this.toDoService.addTask(task)
             .subscribe(
                 (newTask) => {
+                    console.log(newTask);
                     this.tasks.push(newTask);
                 },
                 (error) => { this.error = <any>error; }

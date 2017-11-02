@@ -8,19 +8,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const common = require('./webpack.common');
 
-const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-const API_URL = process.env.API_URL = '';
-const PUBLIC_PATH = '';
-
-const OUTPUT_PATH = path.resolve(__dirname, './../dist');
-const SOURCE_PATH = path.resolve(__dirname, './../src');
-
 module.exports = webpackMerge(common.config, {
 
     output: {
-        filename: '[name].[chunkhash].js',        
-        publicPath: PUBLIC_PATH,
-        path: OUTPUT_PATH
+        filename: '[name].[chunkhash].min.js'      
     },
 
     module: {
@@ -76,13 +67,6 @@ module.exports = webpackMerge(common.config, {
             mainPath: './src/main.ts'
         }),
 
-        new webpack.DefinePlugin({
-            'process.env': {
-                'ENV': JSON.stringify(ENV),
-                'API_URL': JSON.stringify(API_URL)
-            }
-        }),
-
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
@@ -97,13 +81,6 @@ module.exports = webpackMerge(common.config, {
             comments: false
         })
 
-    ],
-
-    devServer: {
-        contentBase: OUTPUT_PATH,
-        historyApiFallback: {
-            index: PUBLIC_PATH
-        }
-    }
+    ]
 
 });
