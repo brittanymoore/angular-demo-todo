@@ -5,6 +5,7 @@ const webpackMerge = require('webpack-merge');
 const ngtools = require('@ngtools/webpack');
 const WebpackChunkHash = require('webpack-chunk-hash');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const common = require('./webpack.common');
 
@@ -71,15 +72,7 @@ module.exports = webpackMerge(common.config, {
             minimize: true,
             debug: false
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            sourceMap: true,
-            compress: {
-                screw_ie8: true,
-                warnings: false
-            },            
-            comments: false
-        })
+        new UglifyJsPlugin()
 
     ]
 
