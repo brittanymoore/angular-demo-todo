@@ -13,6 +13,10 @@ This repo includes the following:
 * end-to-end testing with protractor
 * express / json-server
 
+Notes:
+As of Angular 5.0.0, AotPlugin has been replaced by [AngularCompilerPlugin](https://www.npmjs.com/package/@ngtools/webpack). See link for 
+upgrade instructions.
+
 ## Getting Started
 
 ### Get the Code
