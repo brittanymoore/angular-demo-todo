@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -13,37 +13,23 @@ export class ToDoService {
     private api: string = `${process.env.API_URL}/tasks`;
 
     constructor(
-        private http: Http
+        private http: HttpClient
     ) { }
 
     public getTasks(): Observable<Task[]> {
-        return this.http.get(this.api, { headers: this.headers() })
-            .map(this.extractHttpData)
-            .catch(this.handleError);
+        return this.http.get<Task[]>(this.api, { headers: this.headers() });
     }
 
     public addTask(task: Task): Observable<Task> {
-        return this.http.post(this.api, JSON.stringify(task), { headers: this.headers() })
-            .map(this.extractHttpData)
-            .catch(this.handleError);
+        return this.http.post<Task>(this.api, JSON.stringify(task), { headers: this.headers() });
     }
 
     public updateTask(task: Task): Observable<Task> {
-        return this.http.put(this.api + '/' + task.id, JSON.stringify(task), { headers: this.headers() })
-            .map(this.extractHttpData)
-            .catch(this.handleError);
+        return this.http.put<Task>(this.api + '/' + task.id, JSON.stringify(task), { headers: this.headers() });
     }
 
-    private handleError(error: any): Promise<any> {
-        return Promise.reject(error.message || error);
-    }
-
-    private extractHttpData(res: Response): Object {
-        return res.json();
-    }
-
-    private headers(): Headers {
-        return new Headers(
+    private headers(): HttpHeaders {
+        return new HttpHeaders(
             {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

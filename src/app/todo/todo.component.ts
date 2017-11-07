@@ -13,7 +13,7 @@ export class ToDoComponent implements OnInit {
 
     public tasks: Task[] = [];
     public tasksLoading: boolean = true;
-    public error: any;
+    public error: Error;
 
     public task: FormGroup;
     private taskModel: Task = {
@@ -48,6 +48,7 @@ export class ToDoComponent implements OnInit {
                 },
                 (error) => {
                     this.error = <any>error;
+                    this.tasksLoading = false;
                 }
             );
     }
@@ -58,7 +59,9 @@ export class ToDoComponent implements OnInit {
                 (newTask) => {
                     this.tasks.push(newTask);
                 },
-                (error) => { this.error = <any>error; }
+                (error) => {
+                    this.error = <any>error;
+                }
             );
     }
 
