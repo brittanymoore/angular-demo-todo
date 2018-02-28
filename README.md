@@ -8,7 +8,7 @@ This repo includes the following:
 * angular
 * webpack
 * typescript
-* sass
+* postcss / cssnext
 * AOT w/ lazy-loading (@ngtools/webpack)
 * unit testing with karma
 * end-to-end testing with protractor

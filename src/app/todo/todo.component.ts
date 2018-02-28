@@ -12,7 +12,7 @@ import { ToDoService } from './todo.service';
 @Component({
   selector: 'my-todo',
   templateUrl: 'todo.component.html',
-  styleUrls: ['./todo.component.scss'],
+  styleUrls: ['./todo.component.css'],
 })
 export class ToDoComponent implements OnInit {
   public tasks: Task[] = [];

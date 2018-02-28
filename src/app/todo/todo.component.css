@@ -1,12 +1,12 @@
-$lightPink: #f972d6;
-$darkPink: #f123bb;
-
-$listItem: $lightPink;
-$listItemHover: $darkPink;
+:root {
+  --light-pink: #f972d6;
+  --dark-pink: #f123bb;
+  --list-item: var(--light-pink);
+  --list-item-hover: var(--dark-pink);
+}
 
 .todo-list-container {
   border: 1px solid #f0f0f0;
-  padding: 10;
   box-shadow: 0px 1px 1px #f0f0f0;
   border-radius: 4px;
 }
@@ -16,7 +16,7 @@ $listItemHover: $darkPink;
   font-size: 1em;
   padding: 5px;
   color: #ffffff;
-  background-color: $darkPink;
+  background-color: var(--dark-pink);
   border-radius: 4px;
 }
 
@@ -35,7 +35,7 @@ $listItemHover: $darkPink;
 }
 
 .todo-list > li.complete .icon {
-  color: $darkPink;
+  color: var(--dark-pink);
 }
 
 .todo-list > li.complete {
@@ -54,5 +54,5 @@ $listItemHover: $darkPink;
 }
 
 .task-complete > .icon:hover {
-  color: $darkPink;
+  color: var(--dark-pink);
 }
