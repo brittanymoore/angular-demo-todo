@@ -9,9 +9,8 @@ const OUTPUT_PATH = path.resolve(__dirname, `./../${process.env.OUTPUT_DIR}`);
 module.exports = {
 
     entry: {
-        'main': './src/main.ts',
-        'vendor': './src/vendor.ts',
-        'polyfill': './src/polyfill.ts'
+        main: './src/main.ts',
+        vendor: './src/vendor.ts'
     },
 
     output: {
