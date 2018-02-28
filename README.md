@@ -17,6 +17,10 @@ Notes:
 As of Angular 5.0.0, AotPlugin has been replaced by [AngularCompilerPlugin](https://www.npmjs.com/package/@ngtools/webpack). See link for 
 upgrade instructions.
 
+## Known Related Issues
+
+[angular-cli - 7474](https://github.com/angular/angular-cli/issues/7474) (workaround: `@types/node` set to version 8.0.19)
+
 ## Getting Started
 
 ### Get the Code
