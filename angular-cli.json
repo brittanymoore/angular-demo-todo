@@ -1,10 +1,10 @@
 {
-    "apps": [
-        {
-            "root": "src"
-        }
-    ],
-    "defaults": {
-        "styleExt": "scss"
+  "apps": [
+    {
+      "root": "src"
     }
+  ],
+  "defaults": {
+    "styleExt": "scss"
+  }
 }

@@ -1,30 +1,30 @@
-<div class="error" *ngIf="error">{{error?.message}}</div>
+<div class="error" *ngIf="error">{{ error?.message }}</div>
 
 <!-- list of tasks -->
 <div class="todo-list-container">
 
-    <h2>My List</h2>
+  <h2>My List</h2>
 
-    <div *ngIf="!tasksLoading; else loading">
+  <div *ngIf="!tasksLoading; else loading">
 
-        <ul id="taskList" class="todo-list" *ngIf="tasks.length; else notasks">
-            <li *ngFor="let task of tasks" [ngClass]="{complete: task.complete}">
-                {{task.name}}
-                <div class="task-complete" (click)="toggleTaskCompletion(task)">
-                    <span class="icon material-icons">check_circle</span>
-                </div>
-            </li>
-        </ul>
+    <ul id="taskList" class="todo-list" *ngIf="tasks.length; else notasks">
+      <li *ngFor="let task of tasks" [ngClass]="{complete: task.complete}">
+        {{ task.name }}
+        <div class="task-complete" (click)="toggleTaskCompletion(task)">
+          <span class="icon material-icons">check_circle</span>
+        </div>
+      </li>
+    </ul>
 
-        <ng-template #notasks>
-            <div>No tasks found.</div>
-        </ng-template>
-
-    </div>
-
-    <ng-template #loading>
-        <div>Please wait...</div>        
+    <ng-template #notasks>
+      <div>No tasks found.</div>
     </ng-template>
+
+  </div>
+
+  <ng-template #loading>
+    <div>Please wait...</div>
+  </ng-template>
 
 </div>
 
@@ -32,10 +32,10 @@
 
 <!-- new task form -->
 <div class="card">
-    <form novalidate [formGroup]="task" (ngSubmit)="onSubmit()">
-        <label>Add a task:
-            <input type="text" name="name" formControlName="name" id="taskName" />
-        </label> 
-        <input type="submit" [disabled]="!task.valid" id="taskAdd" value="Add" />    
-    </form>
+  <form novalidate [formGroup]="task" (ngSubmit)="onSubmit()">
+    <label>Add a task:
+      <input type="text" name="name" formControlName="name" id="taskName" />
+    </label>
+    <input type="submit" [disabled]="!task.valid" id="taskAdd" value="Add" />
+  </form>
 </div>

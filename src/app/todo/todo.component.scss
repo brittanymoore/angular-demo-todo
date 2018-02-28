@@ -5,54 +5,54 @@ $listItem: $lightPink;
 $listItemHover: $darkPink;
 
 .todo-list-container {
-    border: 1px solid #f0f0f0;
-    padding: 10;
-    box-shadow: 0px 1px 1px #f0f0f0;
-    border-radius: 4px;
+  border: 1px solid #f0f0f0;
+  padding: 10;
+  box-shadow: 0px 1px 1px #f0f0f0;
+  border-radius: 4px;
 }
 
 .todo-list-container > h2 {
-    margin: 0;
-    font-size: 1em;
-    padding: 5px;
-    color: #ffffff;
-    background-color: $darkPink;
-    border-radius: 4px;
+  margin: 0;
+  font-size: 1em;
+  padding: 5px;
+  color: #ffffff;
+  background-color: $darkPink;
+  border-radius: 4px;
 }
 
 .todo-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .todo-list > li {
-    border: 1px solid #f0f0f0;
-    padding: 5px;
-    background-color: #ffffff;
-    border-radius: 4px;
-    line-height: 1.5em;
+  border: 1px solid #f0f0f0;
+  padding: 5px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  line-height: 1.5em;
 }
 
 .todo-list > li.complete .icon {
-    color: $darkPink;
+  color: $darkPink;
 }
 
 .todo-list > li.complete {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 .task-complete {
-    float: right;
-    font-size: 1.5em;
+  float: right;
+  font-size: 1.5em;
 }
 
 .task-complete > .icon {
-    cursor: pointer;
-    color: darkgray;
-    transition: color 1s;
+  cursor: pointer;
+  color: darkgray;
+  transition: color 1s;
 }
 
 .task-complete > .icon:hover {
-    color: $darkPink;
+  color: $darkPink;
 }
